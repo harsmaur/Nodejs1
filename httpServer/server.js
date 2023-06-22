@@ -11,7 +11,20 @@ const http = require('http');
 
 //craeted a server using createServer() method
 const Server = http.createServer((req, res)=>{
-      res.end('Hello from the other side');
+
+    //dealing routing to different urls
+    if(req.url =='/'){
+        res.end('Hello from the home side');
+    }
+    else if(req.url =='/about'){
+        res.end('Hello from the about side');
+    }
+    else{
+        res.writeHead(404, {'Content-type': 'text/html'}) //to throw error 404(sending header data)
+        res.end('<h1>404 does not exists</h1>')
+    }
+     
+     
 })
 
 //listening to the request 
