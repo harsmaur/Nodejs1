@@ -1,6 +1,6 @@
 const fs = require('fs');  //stream is required using the fs module
 const http = require('http');
-const { Readable, Writable, Duplex, Transform } = require('stream');
+const { Readable, Writable, Duplex, Transform, Stream } = require('stream');
 
 
 const Server = http.createServer();
@@ -16,17 +16,22 @@ Server.on('request',(req, res)=>{
 
 
     //now using stream
-    const rstream = fs.createReadStream('input.txt');
-    rstream.on('data', (chunkdata)=>{
-        //Handle stream events -> data, end and error
-        res.write(chunkdata)
-    })
-    rstream.on('end', ()=>{
-        res.end();
-})
-rstream.on('error', (err)=>{
-    console.log(err)
-})
+//     const rstream = fs.createReadStream('input.txt');
+//     rstream.on('data', (chunkdata)=>{
+//         //Handle stream events -> data, end and error
+//         res.write(chunkdata)
+//     })
+//     rstream.on('end', ()=>{
+//         res.end();
+// })
+// rstream.on('error', (err)=>{
+//     console.log(err)
+// })
+
+// 3rd way
+// Stream.pipe() the method used to take a readbale stream and connect it to a writeable Stream
+const rstream = fs.createReadStream('input.txt');
+rstream.pipe(res)
 })
 
 
@@ -54,3 +59,4 @@ Server.listen(port, "127.0.0.1",()=>{
 // error - This event is fired when there is any error recieving or writing data
 
 // finish - This event is fired when all the data has been flushed to underlying system
+
