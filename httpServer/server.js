@@ -8,7 +8,7 @@
 
 //required hhtp module 
 const http = require('http');
-
+const fs = require('fs')
 //craeted a server using createServer() method
 const Server = http.createServer((req, res)=>{
 
@@ -18,6 +18,24 @@ const Server = http.createServer((req, res)=>{
     }
     else if(req.url =='/about'){
         res.end('Hello from the about side');
+    }
+    else if(req.url == '/userapi'){
+
+        fs.readFile('UserAPI/userapi.json','utf-8', (err, data)=>{
+            if(err){
+                res.writeHead(500, {'Content-Type' : 'text/html'})
+                res.end('<h1>Error reading userapi.json</h1>');
+            }
+            else{
+                // const objdata = JSON.parse(data);
+                res.writeHead(200, {'Content-Type': 'application/json'})
+                res.end(data) //sending the data(json)
+                // console.log(objdata)
+                // res.end(objdata)
+            }
+             
+        })
+        // res.end('Hello from userapi side')
     }
     else{
         res.writeHead(404, {'Content-type': 'text/html'}) //to throw error 404(sending header data)
