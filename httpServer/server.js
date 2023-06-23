@@ -1,16 +1,17 @@
-// The http.createServer() method includes request and response parameters which is supplied by Node JS 
 
-//The request object can be used to get information about the current HTTP request e.g. url, request header, and data.
-
-//The response object can be used to send a response for a current HTTP request
-
-//If the reponse from the http server is supposed to be displayed as  HTML, you should include an HTTP header with the correct content type:
-
-//required hhtp module 
 const http = require('http');
 const fs = require('fs')
+
+
 //craeted a server using createServer() method
 const Server = http.createServer((req, res)=>{
+
+    const data = fs.readFileSync('UserAPI/userapi.json','utf-8')
+   // Did this to prevent from loading the json file again and again 
+    //Sync method used here
+        
+         
+    
 
     //dealing routing to different urls
     if(req.url =='/'){
@@ -20,21 +21,8 @@ const Server = http.createServer((req, res)=>{
         res.end('Hello from the about side');
     }
     else if(req.url == '/userapi'){
-
-        fs.readFile('UserAPI/userapi.json','utf-8', (err, data)=>{
-            if(err){
-                res.writeHead(500, {'Content-Type' : 'text/html'})
-                res.end('<h1>Error reading userapi.json</h1>');
-            }
-            else{
-                // const objdata = JSON.parse(data);
-                res.writeHead(200, {'Content-Type': 'application/json'})
-                res.end(data) //sending the data(json)
-                // console.log(objdata)
-                // res.end(objdata)
-            }
-             
-        })
+        res.writeHead(200, {'Content-type': 'application/json'})
+       res.end(data);
         // res.end('Hello from userapi side')
     }
     else{
@@ -44,6 +32,7 @@ const Server = http.createServer((req, res)=>{
      
      
 })
+
 
 //listening to the request 
 const port = 8000;
