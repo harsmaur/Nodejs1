@@ -7,6 +7,7 @@ const app = express()
 
 
 
+
 //API methods in expressjs
 // get = read
 // post - create
@@ -20,7 +21,7 @@ const app = express()
 app.get('/', (req, res) => {
     res.send('<h1>hello world this is home</h1>')
   })
-  
+
 app.get('/about', (req, res) => {
     res.send('<h1>This is About</h1>')
   })
