@@ -1,17 +1,22 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const hbs = require('hbs') //required template engine for partials 
 
-
-const templatePath = path.join(__dirname, '../src/templates');
+const templatePath = path.join(__dirname, '../src/templates/views');
 console.log(path.join(__dirname, '../src/templates'))
+const partislaPath = path.join(__dirname, '../src/templates/partials');
 
 
 //to use template engine we need to set it first
 //to set the view engine
 
+
 app.set('view engine','hbs');
-app.set('views', templatePath);  //it means views directory has been changed to templates directory
+app.set('views', templatePath);  
+hbs.registerPartials(partislaPath); //registered the partials
+
+
 
 //template engine route
 app.get('/', (req, res)=>{
@@ -28,6 +33,7 @@ app.get('/about',(req, res)=>{
 app.get('/',(req, res)=>{
   res.send('Hello')
 })
+
 
 app.listen(3000, ()=>{
 console.log('Listening to port 3000')
