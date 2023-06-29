@@ -1,29 +1,23 @@
-const express = require('express')
+const express = require('express');
 const path = require('path');
-const app = express()
+const app = express();
 
 
-// To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express.
-// The function signature is:
-// express.static(root, [options])
-// app.use(express.static('public'))
+//to use template engine we need to set it first
+//to set the view engine
+app.set('view engine','hbs');
 
-// console.log(path.join(__dirname,'../public'))
-
-const staticPath = path.join(__dirname,'../public');
-app.use(express.static(staticPath))
-
-
-app.get('/', (req, res) => {
-    res.send('<h1>hello world this is home</h1>')
+//template engine route
+app.get('/', (req, res)=>{
+  res.render('index')
 })
 
-app.get('/about', (req, res) => {
-    res.send('<h1>This is About</h1>')
+app.get('/',(req, res)=>{
+  res.send('Hello')
 })
 
-
-const port = 3001;
-app.listen(port, () => {
-    console.log('listening to port 3000')
+app.listen(3000, ()=>{
+console.log('Listening to port 3000')
 })
+
+//views, the directory where the template files are located. Eg: app.set('views', './views'). This defaults to the views directory in the application root directory.
