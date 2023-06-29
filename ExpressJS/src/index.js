@@ -9,7 +9,9 @@ app.set('view engine','hbs');
 
 //template engine route
 app.get('/', (req, res)=>{
-  res.render('index')
+  res.render('index',{
+    name: 'harsh'  //sending dynamic content
+  })
 })
 
 app.get('/',(req, res)=>{
